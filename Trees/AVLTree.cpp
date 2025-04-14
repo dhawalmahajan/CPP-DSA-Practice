@@ -100,6 +100,91 @@ Node *insert(Node *root, int key)
         return root;
     }
 }
+Node *deleteNode(Node *root, int key)
+{
+    if (!root)
+        return NULL;
+    if (key < root->data)
+    { // left side
+        root->left = deleteNode(root->left, key);
+    }
+    else if (key > root->data)
+    {
+        root->right = deleteNode(root->right, key);
+    }
+    else
+    {
+        // Leaf node
+        if (!root->left && !root->right)
+        {
+            return NULL;
+        }
+        // Node with single child
+        else if (root->left && !root->right)
+        {
+            Node *temp = root->left;
+            delete root;
+            return temp;
+        }
+        else if (!root->left && root->right)
+        {
+            Node *temp = root->right;
+            delete root;
+            return temp;
+        }
+        // Node with 2 children exist
+        else
+        {
+            // right side smallest element
+            Node *current = root->right;
+            while (current->left)
+            {
+                current = current->left;
+            }
+            root->data = current->data;
+            root->right = deleteNode(root->right, current->data);
+        }
+    }
+    // Update height of this ancestor node
+    root->height = 1 + max(getHeight(root->left), getHeight(root->right));
+    // check for unbalancing
+    int balance = getBalance(root);
+    // Left Side
+    if (balance > 1)
+    {
+        // Left Left Unbalancing Case
+        if (getBalance(root->left) >= 0)
+        {
+            return rightRotation(root);
+        }
+        // Left Right Unbalancing Case
+        else
+        {
+            root->left = leftRotation(root->left);
+            return rightRotation(root);
+        }
+    }
+    // Right Side
+    else if (balance < -1)
+    {
+        // Right Right Unbalancing Case
+        if (getBalance(root->right) <= 0)
+        {
+            return leftRotation(root);
+        }
+        // Right Left Unbalancing Case
+        else
+        {
+            root->right = rightRotation(root->right);
+            return leftRotation(root);
+        }
+    }
+    else
+    {
+        return root;
+    }
+    // ri
+}
 
 void preOrder(Node *root)
 {
@@ -145,5 +230,11 @@ int main()
     cout << "\n"
          << "Inorder traversal of the constructed AVL tree is \n";
     inOrder(root);
+    cout << "\n"
+         << "Postorder traversal of the constructed AVL tree is \n";
+    postOrder(root);
+    cout << "\n";
+    root = deleteNode(root, 10);
+
     return 0;
 }
