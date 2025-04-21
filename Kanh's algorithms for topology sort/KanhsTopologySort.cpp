@@ -52,4 +52,22 @@ vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e)
     }
     return ans;
 }
-int main() { std::cout << "Hello World!\n"; }
+int main()
+{
+    std::cout << "Hello World!\n";
+    int v = 6;
+    int e = 6;
+    vector<vector<int>> edges = {
+        {5, 2},
+        {5, 0},
+        {4, 0},
+        {4, 1},
+        {2, 3},
+        {3, 1}};
+    vector<int> ans = topologicalSort(edges, v, e);
+    for (int i = 0; i < ans.size(); i++)
+    {
+        cout << ans[i] << " ";
+    }
+    cout << endl;
+}
