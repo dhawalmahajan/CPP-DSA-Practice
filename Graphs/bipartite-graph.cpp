@@ -1,8 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isBipartite(int V, vector<vector<int>> &edges) {
-  // Code here
+//* DFS Approach
+bool checkBipartite(int node, vector<vector<int>> &adj, vector<int> &color) {
+  for (int j = 0; j < adj[node].size(); j++) {
+    int neighbor = adj[node][j];
+    if (color[neighbor] == -1) {
+      color[neighbor] = 1 - color[node];
+      if (!checkBipartite(neighbor, adj, color)) {
+        return false;
+      }
+    } else {
+      if (color[neighbor] == color[node]) {
+        return false;  // Same color as the current node
+      }
+    }
+  }
+  return true;
+}
+bool isBipartiteUsingDFS(int V, vector<vector<int>> &edges) {
+  vector<vector<int>> adj(V);
+  for (auto &edge : edges) {
+    int u = edge[0];
+    int v = edge[1];
+    adj[u].push_back(v);
+    adj[v].push_back(u);  // Since the graph is undirected
+  }
+  vector<int> color(V, -1);
+  for (int i = 0; i < V; i++) {
+    if (color[i] == -1) {
+      color[i] = 0;  // Start coloring with color 0
+      if (!checkBipartite(i, adj, color)) {
+        return false;  // If the graph is not bipartite, return false
+      }
+    }
+  }
+  return true;
+}
+//* BFS Approch
+
+bool isBipartiteUsingBFS(int V, vector<vector<int>> &edges) {
   vector<vector<int>> adj(V);
   for (auto &edge : edges) {
     int u = edge[0];
@@ -37,6 +74,11 @@ bool isBipartite(int V, vector<vector<int>> &edges) {
   }
 
   return true;
+}
+bool isBipartite(int V, vector<vector<int>> &edges) {
+  // return isBipartiteUsingBFS(V, edges);
+  return isBipartiteUsingDFS(V, edges);
+  // You can also use DFS approach
 }
 int main() {
   int V, E;
