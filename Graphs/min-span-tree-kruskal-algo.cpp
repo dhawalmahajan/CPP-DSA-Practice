@@ -50,6 +50,7 @@ int spanningTree(int V, vector<vector<int>> adj[]) {
   priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>,
                  greater<pair<int, pair<int, int>>>>
       pq;
+  // Time complesxity: O(V + ElogE)
   for (int i = 0; i < V; i++) {
     for (int j = 0; j < adj[i].size(); j++) {
       int weight = adj[i][j][1];
@@ -68,7 +69,9 @@ int spanningTree(int V, vector<vector<int>> adj[]) {
     if (findParent(u, parent) != findParent(v, parent)) {
       cost += weight;
       unionByRank(u, v, parent, rank);
+      edges++;
     }
+    if (edges == V - 1) break;
   }
   return cost;
 }
