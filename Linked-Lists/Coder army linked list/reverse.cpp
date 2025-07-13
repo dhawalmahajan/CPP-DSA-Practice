@@ -30,7 +30,13 @@ ListNode* reverseListAlternateApproch(ListNode* head) {
   head = prev;
   return head;
 }
-ListNode* reverseList(ListNode* head) {
+ListNode* reverseRecursively(ListNode* curr, ListNode* prev) {
+  if (curr == NULL) return prev;
+  ListNode* future = curr->next;
+  curr->next = prev;
+  return reverseRecursively(future, curr);
+}
+ListNode* reverseListUsingIteration(ListNode* head) {
   vector<int> ans;
   ListNode* temp = head;
   while (temp != NULL) {
@@ -46,12 +52,19 @@ ListNode* reverseList(ListNode* head) {
   }
   return head;
 }
+ListNode* reverseList(ListNode* head) {
+  //* Approch 1 Call
+  return reverseRecursively(head, NULL);
+  //* Approch 2 Call
+  // return reverseListAlternateApproch(head);
+  //* Approch 3 Call
+  // return reverseListUsingIteration(head);
+}
 int main() {
   // Example usage
   ListNode* head = new ListNode(
       1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
-  head = reverseListAlternateApproch(head);
-
+  head = reverseList(head);
   // Print reversed list
   ListNode* temp = head;
   while (temp != NULL) {
