@@ -19,6 +19,17 @@ struct ListNode {
   ListNode(int x) : val(x), next(nullptr) {}
   ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
+ListNode* reverseListAlternateApproch(ListNode* head) {
+  ListNode *curr = head, *prev = NULL, *future = NULL;
+  while (curr) {
+    future = curr->next;
+    curr->next = prev;
+    prev = curr;
+    curr = future;
+  };
+  head = prev;
+  return head;
+}
 ListNode* reverseList(ListNode* head) {
   vector<int> ans;
   ListNode* temp = head;
@@ -39,7 +50,7 @@ int main() {
   // Example usage
   ListNode* head = new ListNode(
       1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
-  head = reverseList(head);
+  head = reverseListAlternateApproch(head);
 
   // Print reversed list
   ListNode* temp = head;
