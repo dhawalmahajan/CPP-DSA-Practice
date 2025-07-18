@@ -27,22 +27,20 @@
 #include <iostream>
 #include <vector>
 
-
 // calculating catalan number using DP, Time complexity O(n^2)
-int catalan_number( int n ) {
-  std::vector<int> table(n+1);
+int catalan_number(int n) {
+  std::vector<int> table(n + 1);
   table[0] = table[1] = 1;
-  for ( int i = 2; i <= n; ++i ) {
+  for (int i = 2; i <= n; ++i) {
     table[i] = 0;
-    for ( int j = 0; j < i; ++j ) {
-      table[i] += ( table[j] * table[i - j - 1] );
+    for (int j = 0; j < i; ++j) {
+      table[i] += (table[j] * table[i - j - 1]);
     }
   }
   return table[n];
 }
 
-int main()
-{
+int main() {
   int n;
   std::cout << "Enter a number : ";
   std::cin >> n;

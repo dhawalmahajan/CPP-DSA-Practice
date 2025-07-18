@@ -8,8 +8,7 @@
 
 int FactorialNonRecursion(int number) {
   int result = 1;
-  for (int i=1; i<number+1; ++i)
-    result = result * i;
+  for (int i = 1; i < number + 1; ++i) result = result * i;
   return result;
 }
 
@@ -17,11 +16,10 @@ int FactorialRecursion(int number) {
   if (number == 0 || number == 1) {
     return 1;
   }
-  return number * FactorialRecursion(number-1);
+  return number * FactorialRecursion(number - 1);
 }
 
-int main(int argc, char *argv[]){
-
+int main(int argc, char *argv[]) {
   int testNonRecursion = FactorialNonRecursion(5);
   std::cout << testNonRecursion << "\n";
 

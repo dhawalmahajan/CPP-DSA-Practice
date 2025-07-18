@@ -1,13 +1,14 @@
 // Algorithm Type: Divide & Conquer
 // Time Complexity: O(n*log(n))
 
+#include <fstream>
 #include <iostream>
 #include <iterator>
-#include <fstream>
 #include <vector>
 using namespace std;
 
-long long int count_split_inv(vector<int> &vec, vector<int> &left, vector<int> &right) {
+long long int count_split_inv(vector<int> &vec, vector<int> &left,
+                              vector<int> &right) {
   long long int split_inv = 0;
   int ridx = 0, lidx = 0;
   int size = vec.size();

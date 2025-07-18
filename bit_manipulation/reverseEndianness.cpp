@@ -1,15 +1,11 @@
-#include <iostream>
 #include <cstdio>
+#include <iostream>
 
-enum endianess {
-  LITTLE_ENDIAN_MACHINE = 0,
-  BIG_ENDIAN_MACHINE
-};
+enum endianess { LITTLE_ENDIAN_MACHINE = 0, BIG_ENDIAN_MACHINE };
 
-endianess determine_endianess()
-{
+endianess determine_endianess() {
   unsigned int num = 1;
-  char * c = (char *) &num;
+  char *c = (char *)&num;
   if (*c == 1) {
     return LITTLE_ENDIAN_MACHINE;
   } else {
@@ -17,16 +13,14 @@ endianess determine_endianess()
   }
 }
 
-void printBytes( char * start, int size)
-{
-  for ( int i = 0; i < size; ++i ) {
-    printf("%.2x ", start[i] );
+void printBytes(char *start, int size) {
+  for (int i = 0; i < size; ++i) {
+    printf("%.2x ", start[i]);
   }
   std::cout << std::endl;
 }
 
-int reverseEndianNess( int num )
-{
+int reverseEndianNess(int num) {
   int byte1, byte2, byte3, byte4;
   byte1 = (num & 0x000000FF) >> 0;
   byte2 = (num & 0x0000FF00) >> 8;
@@ -47,9 +41,9 @@ int main() {
   std::cout << "Num in decimal:    " << num << std::endl;
   std::ios::fmtflags f(std::cout.flags());
   std::cout << "Num in hexadecimal:" << std::hex << num << std::endl;
-  std::cout.flags( f );
+  std::cout.flags(f);
   std::cout << "Printing individual bytes:\n";
-  printBytes((char*)&num, sizeof(num));
+  printBytes((char *)&num, sizeof(num));
 
   std::cout << std::endl;
   std::cout << "Num in reversed endianness:\n";
@@ -59,10 +53,9 @@ int main() {
 
   f = std::cout.flags();
   std::cout << "Num in hexadecimal:" << std::hex << num1 << std::endl;
-  std::cout.flags( f );
+  std::cout.flags(f);
   std::cout << "Printing individual bytes:\n";
-  printBytes((char*)&num1, sizeof(num1));
+  printBytes((char *)&num1, sizeof(num1));
 
   return 0;
-
 }

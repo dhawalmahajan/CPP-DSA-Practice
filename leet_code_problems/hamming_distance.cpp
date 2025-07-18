@@ -17,26 +17,22 @@ The above arrows point to positions where the corresponding bits are different
 
 #include <iostream>
 
-int hamming_distance(int x, int y)
-{
-    // XOR will set only those bits in z which are different in x and y
-    int z = x ^ y;
+int hamming_distance(int x, int y) {
+  // XOR will set only those bits in z which are different in x and y
+  int z = x ^ y;
 
-    // Now just count set bits in z.
-    int count = 0;
-    while (z)
-    {
-        count += (z % 2);
-        z >>= 2;
-    }
-    return count;
+  // Now just count set bits in z.
+  int count = 0;
+  while (z) {
+    count += (z % 2);
+    z >>= 2;
+  }
+  return count;
 }
 
-
-int main()
-{
-    int x = 4;
-    int y = 1;
-    std::cout << "Hamming distance between " << x << " and " << y << " is : "
-        <<  hamming_distance(x, y) << std::endl;
+int main() {
+  int x = 4;
+  int y = 1;
+  std::cout << "Hamming distance between " << x << " and " << y
+            << " is : " << hamming_distance(x, y) << std::endl;
 }

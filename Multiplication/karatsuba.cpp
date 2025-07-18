@@ -1,75 +1,60 @@
 #include <math.h>
+
 #include <iostream>
 #include <string>
 using namespace std;
 
-int equalize_strings(string &x, string &y)
-{
+int equalize_strings(string &x, string &y) {
   int n = x.length();
   int m = y.length();
   string zeros(abs(n - m), '0');
-  if (n > m)
-  {
+  if (n > m) {
     y = zeros + y;
-  }
-  else if (m > n)
-  {
+  } else if (m > n) {
     x = zeros + x;
   }
   return x.length();
 }
 
-string sum(string x, string y)
-{
+string sum(string x, string y) {
   int len = equalize_strings(x, y);
   int carry = 0;
   string result;
-  for (int i = 1; i <= len; i++)
-  {
+  for (int i = 1; i <= len; i++) {
     int dgt1 = x[len - i] - '0';
     int dgt2 = y[len - i] - '0';
     int dgt3 = (dgt1 + dgt2 + carry) % 10;
     result = to_string(dgt3) + result;
     carry = (dgt1 + dgt2 + carry) / 10;
   }
-  if (carry)
-  {
+  if (carry) {
     result = '1' + result;
   }
   return result;
 }
 
-string subtract(string x, string y)
-{
+string subtract(string x, string y) {
   int len = equalize_strings(x, y);
   int carry = 0;
   string result;
-  for (int i = 0; i < len; i++)
-  {
-    if (y[i] < x[i])
-    {
+  for (int i = 0; i < len; i++) {
+    if (y[i] < x[i]) {
       break;
-    }
-    else if (x[i] < y[i])
-    {
+    } else if (x[i] < y[i]) {
       string temp = x;
       x = y;
       y = temp;
       break;
     }
   }
-  for (int i = 1; i <= len; i++)
-  {
+  for (int i = 1; i <= len; i++) {
     int dgt1 = x[len - i] - '0';
     int dgt2 = y[len - i] - '0';
     int dgt3 = dgt1 - dgt2 - carry;
-    if (dgt3 < 0)
-    {
+    if (dgt3 < 0) {
       dgt3 += 10;
       carry = 1;
-    }
-    else
-    {
+    } else {
       carry = 0;
     }
     result = to_string(dgt3) + result;
@@ -77,11 +62,9 @@ string subtract(string x, string y)
   return result;
 }
 
-string kmul(string x, string y)
-{
+string kmul(string x, string y) {
   int len = equalize_strings(x, y);
-  if (len == 1)
-  {
+  if (len == 1) {
     return to_string((x[0] - '0') * (y[0] - '0'));
   }
   int mid = len / 2;
@@ -101,8 +84,7 @@ string kmul(string x, string y)
   return result;
 }
 
-int main()
-{
+int main() {
   string x, y;
   cin >> x >> y;
   cout << kmul(x, y) << endl;

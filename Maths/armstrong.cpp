@@ -1,22 +1,18 @@
 #include <iostream>
 using namespace std;
-int main()
-{
+int main() {
   int a = 0, t, n, s, r, p, i, sum = 0;
   cin >> n;
   t = n;
-  while (t > 0)
-  {
+  while (t > 0) {
     t /= 10;
     a++;
   }
   s = n;
-  while (s > 0)
-  {
+  while (s > 0) {
     r = s % 10;
     p = r;
-    for (i = 1; i < a; i++)
-    {
+    for (i = 1; i < a; i++) {
       p *= r;
     }
     sum += p;

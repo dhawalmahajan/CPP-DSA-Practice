@@ -2,25 +2,21 @@
  *  Problem : Reverse bits of an unsigned integer
  */
 
+#include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <sstream>
-#include <cassert>
-#include <algorithm>
 
 /**
- * swapBits - utility function to swap bits at position i and j in unsigned int x
- * l represents bit at position i
- * r represents bit at position j
- * if l and r are same nothing needs to be done.
- * if l and r are different i.e. (l ^ r == 1),
- * we toggle bits at position i and j, and return new x.
+ * swapBits - utility function to swap bits at position i and j in unsigned int
+ * x l represents bit at position i r represents bit at position j if l and r
+ * are same nothing needs to be done. if l and r are different i.e. (l ^ r ==
+ * 1), we toggle bits at position i and j, and return new x.
  */
-unsigned int swapBits(unsigned int x, unsigned int i, unsigned int j)
-{
+unsigned int swapBits(unsigned int x, unsigned int i, unsigned int j) {
   unsigned int l = ((x >> i) & 1);
   unsigned int r = ((x >> j) & 1);
-  if ( l ^ r )
-  {
+  if (l ^ r) {
     x ^= ((1U << i) | (1U << j));
   }
   return x;
@@ -31,15 +27,13 @@ unsigned int swapBits(unsigned int x, unsigned int i, unsigned int j)
  second with one before last and so on.
  */
 
-unsigned int reverseBits1(int n)
-{
+unsigned int reverseBits1(int n) {
   unsigned bitCount = sizeof(n) * 8;
-  for( unsigned int i = 0; i < bitCount/2; ++i) {
-    n = swapBits(n, i, bitCount-i-1);
+  for (unsigned int i = 0; i < bitCount / 2; ++i) {
+    n = swapBits(n, i, bitCount - i - 1);
   }
   return n;
 }
-
 
 /**
  *  Now, approach 2, divide and conquer:
@@ -73,8 +67,8 @@ unsigned int reverseBits1(int n)
  * a & (0xA..) >> 1 = 00000000 00000000 00000000 00000101
  *
  * (a & (0x5..)) << 1 | (x & (0xA..)) >> 1
- * 						=  00000000 00000000 00000000 00000101
- *  a =   00000000 00000000 00000000 00000101
+ * 						=  00000000 00000000 00000000
+ *00000101 a =   00000000 00000000 00000000 00000101
  *
  ***********************************************************
  *
@@ -133,36 +127,32 @@ unsigned int reverseBits1(int n)
  * Clearly which is reverse of how we started
  */
 
-unsigned int reverseBits2( unsigned int num )
-{
-  assert(sizeof(num) == 4); // this method will work only for 32 bits
-  num = ((num & 0x55555555) << 1)  |  ((num & 0xAAAAAAAA) >> 1);
-  num = ((num & 0x33333333) << 2)  |  ((num & 0xCCCCCCCC) >> 2);
-  num = ((num & 0x0F0F0F0F) << 4)  |  ((num & 0xF0F0F0F0) >> 4);
-  num = ((num & 0x00FF00FF) << 8)  |  ((num & 0xFF00FF00) >> 8);
-  num = ((num & 0x0000FFFF) << 16) |  ((num & 0xFFFF0000) >> 16);
+unsigned int reverseBits2(unsigned int num) {
+  assert(sizeof(num) == 4);  // this method will work only for 32 bits
+  num = ((num & 0x55555555) << 1) | ((num & 0xAAAAAAAA) >> 1);
+  num = ((num & 0x33333333) << 2) | ((num & 0xCCCCCCCC) >> 2);
+  num = ((num & 0x0F0F0F0F) << 4) | ((num & 0xF0F0F0F0) >> 4);
+  num = ((num & 0x00FF00FF) << 8) | ((num & 0xFF00FF00) >> 8);
+  num = ((num & 0x0000FFFF) << 16) | ((num & 0xFFFF0000) >> 16);
   return num;
 }
 
-std::string printBinary(unsigned int n)
-{
+std::string printBinary(unsigned int n) {
   std::stringstream ss;
   std::string bin;
   int count = 0;
-  while(n)
-  {
+  while (n) {
     ss << (n % 2);
     n /= 2;
     ++count;
   }
   bin = ss.str();
-  bin.append(32-count, '0');
+  bin.append(32 - count, '0');
   std::reverse(bin.begin(), bin.end());
   return bin;
 }
 
-int main()
-{
+int main() {
   std::cout << "Enter an unsigned number:";
   unsigned int n;
   std::cin >> n;

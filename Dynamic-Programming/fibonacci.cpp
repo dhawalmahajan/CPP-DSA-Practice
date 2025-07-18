@@ -12,23 +12,24 @@ Space Complexity - O(1)
 */
 
 class Solution {
-public:
-    int fib(int n) {
-        
-        if(n<2)        // if n<2, i.e, if n is 0 or 1 return n because 0th term is 0 and 1th term is 1
-            return n;
-        
-        int prev1=1;  
-        int prev2=0;
-        
-        for(int i=2; i<=n; i++)
-        {
-            int curr = prev1+prev2;  // the current term is sum of the two terms before it, here prev1 is (i-1)th term and prev2 is (i-2)th term
-            prev2=prev1;
-            prev1=curr;
-        }
-        
-        return prev1;  //at the end prev1 will have the value of the nth term, so we will return it
-        
+ public:
+  int fib(int n) {
+    if (n < 2)  // if n<2, i.e, if n is 0 or 1 return n because 0th term is 0
+                // and 1th term is 1
+      return n;
+
+    int prev1 = 1;
+    int prev2 = 0;
+
+    for (int i = 2; i <= n; i++) {
+      int curr = prev1 +
+                 prev2;  // the current term is sum of the two terms before it,
+                         // here prev1 is (i-1)th term and prev2 is (i-2)th term
+      prev2 = prev1;
+      prev1 = curr;
     }
+
+    return prev1;  // at the end prev1 will have the value of the nth term, so
+                   // we will return it
+  }
 };
