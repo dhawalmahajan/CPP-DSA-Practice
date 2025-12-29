@@ -1,4 +1,6 @@
 .vscode/
 .logs/
-.vscode/settings.json
-.vscode/tasks.json
+.vscode/
+.cph/
+.fleet/
+.zed/
